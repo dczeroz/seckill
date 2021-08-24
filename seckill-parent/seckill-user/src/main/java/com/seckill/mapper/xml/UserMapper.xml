@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.seckill.mapper.UserMapper">
+    <resultMap id="BaseResultMap" type="com.seckill.entity.User">
+        <id column="phone" jdbcType="CHAR" property="phone"/>
+        <result column="nickname" jdbcType="VARCHAR" property="nickname"/>
+        <result column="password" jdbcType="VARCHAR" property="password"/>
+        <result column="head" jdbcType="VARCHAR" property="head" />
+        <result column="register_date" jdbcType="TIMESTAMP" property="registerDate" />
+    </resultMap>
+
+    <select id="getByphone" parameterType="java.lang.String" resultMap="BaseResultMap">
+        select  * from sk_user where phone = #{phone}
+    </select>
+</mapper>

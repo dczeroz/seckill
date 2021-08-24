@@ -1,0 +1,70 @@
+server:
+  port: 8003
+spring:
+  application:
+    name: seckill-process
+  cloud:
+    nacos:
+      discovery:
+        server-addr: 127.0.0.1:8848
+      #获取nacos配置
+      config:
+        server-addr: localhost:8848 #Nacos作为配置中心地址
+        file-extension: yaml #指定yaml格式的配置
+        group: seckill-config #指定配置组名
+        namespace: a3b58faa-ea6b-413e-9638-3093bdd610ec #指定配置包名
+    sentinel:
+      transport:
+        dashboard: localhost:8080 #配置Sentinel dashboard地址
+        #        默认8719端口，假设被占用会自动从8719开始依次+1扫描，直到找到未被占用的端口
+        port: 8719
+      datasource:
+        # 自定义的流控规则,配置注释在application.yml文件中，可查看解释
+        flow:
+          nacos:
+            server-addr: ${spring.cloud.nacos.discovery.server-addr}
+            data-id: ${spring.application.name}-flow-rules
+            namespace: a3b58faa-ea6b-413e-9638-3093bdd610ec
+            groupId: seckill-config
+            data-type: json
+            rule-type: flow
+        #自定义的降级规则
+        degrade:
+          nacos:
+            server-addr: ${spring.cloud.nacos.discovery.server-addr}
+            data-id: ${spring.application.name}-degrade-rules
+            namespace: a3b58faa-ea6b-413e-9638-3093bdd610ec
+            groupId: seckill-config
+            data-type: json
+            rule-type: degrade  # 类型来自RuleType类
+
+ribbon:
+  #指的是建立连接所用的时间，适用于网络状况正常的情况下,两端连接所用的时间
+  ReadTimeout: 5000
+  #指的是建立连接后从服务器读取到可用资源所用的时间
+  ConnectTimeout: 5000
+
+seata:
+  enabled: true
+  enable-auto-data-source-proxy: true
+  tx-service-group: my_test_tx_group
+  registry:
+    type: nacos
+    nacos:
+      application: seata-server
+      server-addr: localhost:8848
+      namespace: a3b58faa-ea6b-413e-9638-3093bdd610ec
+      username: "nacos"
+      password: "nacos"
+      group: seckill-config
+  config:
+    type: nacos
+    nacos:
+      server-addr: localhost:8848
+      group: SEATA_GROUP
+      username: "nacos"
+      password: "nacos"
+      namespace: a3b58faa-ea6b-413e-9638-3093bdd610ec
+  service:
+    vgroup-mapping:
+      my_test_tx_group: default

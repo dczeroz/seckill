@@ -1,0 +1,3 @@
+nacos创建命名空间id为a3b58faa-ea6b-413e-9638-3093bdd610ec代码可节省改动
+seata事物配置此处没拉取
+sentinel配置为seckill-process-flow-rules限流配置和seckill-process-degrade-rules降级配置，可自行修改配置规则

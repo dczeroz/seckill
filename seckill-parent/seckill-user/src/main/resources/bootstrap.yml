@@ -1,0 +1,15 @@
+server:
+  port: 8002
+spring:
+  application:
+    name: seckill-user
+  cloud:
+    nacos:
+      discovery:
+        server-addr: 127.0.0.1:8848
+      #获取nacos配置
+      config:
+        server-addr: localhost:8848 #Nacos作为配置中心地址
+        file-extension: yaml #指定yaml格式的配置
+        group: seckill-config #指定配置组名
+        namespace: a3b58faa-ea6b-413e-9638-3093bdd610ec #指定配置包名

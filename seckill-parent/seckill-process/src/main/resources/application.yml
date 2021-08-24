@@ -1,0 +1,36 @@
+spring:
+  profiles:
+    active: dev
+
+
+#  流控规则
+#      [
+    #	{
+    #		"resource":"seckill",
+    #		"limitApp":"default",
+    #		"grade":1,
+    #		"count":100,
+    #		"strategy":0,
+    #		"controlBehavior":0,
+    #		"clusterMode":false
+    #	 }
+    #]resource：资源名称
+      #limitApp：来源应⽤
+      #grade：阈值类型 0 线程数 1 QPS
+      #count：单机阈值
+      #strategy：流控模式，0 直接 1 关联 2 链路
+      #controlBehavior：流控效果，0 快速失败 1 Warm Up 2 排队等待
+      #clusterMode：true/false 是否集群
+#    降级规则
+#[
+  #	 {
+  #		"resource":"seckill",
+  #		"grade":2,
+  #		"count":50,
+  #		"timeWindow":5
+  #	 }
+  #]
+#  resource：资源名称
+    #grade：降级策略 0 RT 1 异常⽐例 2 异常数
+    #count：阈值
+    #timeWindow：时间窗

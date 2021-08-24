@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.seckill.mapper.OrderMapper">
+    <insert id="createOrder" parameterType="com.seckill.vo.OrderVo" useGeneratedKeys="true" keyProperty="id">
+        insert into sk_order (phone, goods_id) values(#{phone},#{goodsId})
+    </insert>
+
+    <insert id="createOrderInfo" parameterType="com.seckill.entity.OrderInfo">
+      insert into sk_order_info (order_id, goods_name, goods_count, goods_price, status, create_date)
+      values (#{orderId}, #{goodsName}, #{goodsCount}, #{goodsPrice}, #{status}, #{createDate})
+    </insert>
+
+    <resultMap id="OrderMap" type="com.seckill.vo.OrderInfoVo">
+        <id column="id" jdbcType="BIGINT" property="id"/>
+        <result column="order_id" jdbcType="BIGINT" property="orderId"/>
+        <result column="goods_name" jdbcType="VARCHAR" property="goodsName"/>
+        <result column="goods_count" jdbcType="INTEGER" property="goodsCount"/>
+        <result column="goods_price" jdbcType="DECIMAL" property="goodsPrice"/>
+        <result column="status" jdbcType="TINYINT" property="status"/>
+        <result column="create_date" jdbcType="DATE" property="createDate"/>
+        <result column="phone" jdbcType="CHAR" property="phone"/>
+        <result column="goods_id" jdbcType="BIGINT" property="goodsId"/>
+    </resultMap>
+
+    <select id="getOrderList" resultMap="OrderMap" parameterType="java.lang.String">
+        select o.*,so.* from sk_order_info so left join sk_order o on so.order_id=o.id
+        where phone = #{phone} order by create_date desc
+    </select>
+</mapper>
