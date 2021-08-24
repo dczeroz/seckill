@@ -62,7 +62,7 @@ public class GoodServiceImpl implements GoodService {
     }
 
     /**
-     *扣减库存,cas+乐观锁解决高并发不同用抢购场景
+     *扣减库存,乐观锁解决高并发不同用抢购场景
      */
     @GlobalTransactional
     public boolean reduceStock(GoodsVo goodsVo) {
